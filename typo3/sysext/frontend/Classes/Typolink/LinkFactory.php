@@ -154,7 +154,7 @@ readonly class LinkFactory
             } catch (UnableToLinkException $e) {
                 $this->logger->debug('Unable to link "{text}"', [
                     'text' => $e->getLinkText(),
-                    'exception' => $e,
+                    'exception' => $e->getMessage(),
                 ]);
                 // Only return the link text directly
                 throw $e;
@@ -191,7 +191,7 @@ readonly class LinkFactory
             try {
                 $linkDetails = $this->linkService->resolve($linkParameter);
             } catch (UnknownLinkHandlerException|InvalidPathException $exception) {
-                $this->logger->warning('The link could not be generated', ['exception' => $exception]);
+                $this->logger->warning('The link could not be generated', ['exception' => $exception->getMessage()]);
                 return null;
             }
         }
